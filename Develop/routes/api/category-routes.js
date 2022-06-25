@@ -7,14 +7,14 @@ router.get('/', (req, res) => {
   // find all categories
   // be sure to include its associated Products
   Category.findAll({
-    include: [{model: Product}]
+    include: [{ model: Product }]
   }).then(categories => res.status(200).json(categories));
 });
 
 router.get('/:id', (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
-  Category.findByPk(id: req.params.id,{
+  Category.findByPk(req.params.id,{
     include: [{model: Product}]
   }).then(category => res.status(200).json(category));
 });
@@ -37,7 +37,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
-  Category.destroy(req.params.id)
+  Category.destroy({where: { id :req.params.id }})
     .then(deletedCategory => res.status(200).json(deletedCategory))
     .catch(err => res.json(err));
 

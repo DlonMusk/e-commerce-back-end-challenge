@@ -15,11 +15,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
-  Tag.findByPk({
-    where: {
-      id: req.params.id
-    }
-  },
+  Tag.findByPk(req.params.id,
   {
     include: [{model: Product, through: ProductTag}]
   }).then(tag => res.status(200).json(tag))
@@ -45,6 +41,9 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value and update product
+  Tag.destroy({ where: {id : req.params.id } })
+     .then(deletedTag => res.status(200).json(deletedTag))
+     .catch(err => res.json(err));
 });
 
 module.exports = router;
