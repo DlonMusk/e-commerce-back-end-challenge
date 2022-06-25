@@ -40,9 +40,6 @@ router.delete('/:id', (req, res) => {
   Category.destroy({where: { id :req.params.id }})
     .then(deletedCategory => res.status(200).json(deletedCategory))
     .catch(err => res.json(err));
-
-    // call an update on product to update its product_id to null
-
 });
 
 module.exports = router;
